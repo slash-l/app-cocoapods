@@ -34,34 +34,43 @@ node{
             }
          ]
         }"""
-        server.upload spec: uploadSpec
+        buildInfo = server.upload spec: uploadSpec
     }
     
     stage("Set Props"){
-        
+        def setPropsSpec = """{
+         "files": [
+          {
+               "pattern": "slash-cocoapods-dev-local/app-swift-demo/app-swift-demo.tar.gz",
+               "props": "filter-by-this-prop=yes"
+            }
+         ]
+        }"""
+        server.setProps spec: setPropsSpec, props: “test=true;version=v1.0.0”
     }
     
     stage("Publish Build Info"){
-        
+        // Publish the build to Artifactory
+        server.publishBuildInfo buildInfo
     }
     
     stage("Promotion"){
-        // promotionConfig = [
-        //     //Mandatory parameters
-        //     'buildName'          : buildInfo.name,
-        //     'buildNumber'        : buildInfo.number,
-        //     'targetRepo'         : "slash-cocoapods-test-local",
+        promotionConfig = [
+            //Mandatory parameters
+            'buildName'          : buildInfo.name,
+            'buildNumber'        : buildInfo.number,
+            'targetRepo'         : "slash-cocoapods-test-local",
 
-        //     //Optional parameters
-        //     'comment'            : 'this is the promotion comment',
-        //     'sourceRepo'         : "slash-cocoapods-dev-local",
-        //     'status'             : 'Released',
-        //     'includeDependencies': true,
-        //     'failFast'           : true,
-        //     'copy'               : true
-        // ]
+            //Optional parameters
+            'comment'            : 'this is the promotion comment',
+            'sourceRepo'         : "slash-cocoapods-dev-local",
+            'status'             : 'Released',
+            'includeDependencies': true,
+            'failFast'           : true,
+            'copy'               : true
+        ]
 
-        // // Promote build
-        // server.promote promotionConfig
+        // Promote build
+        server.promote promotionConfig
     }
 }
