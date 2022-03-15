@@ -46,7 +46,7 @@ node{
             }
          ]
         }"""
-        server.setProps spec: setPropsSpec, props: “test=true;version=v1.0.0”
+        server.setProps spec: setPropsSpec, props: “test=true;version=v1”
     }
     
     stage("Publish Build Info"){
