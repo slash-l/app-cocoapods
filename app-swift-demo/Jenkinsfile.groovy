@@ -23,9 +23,8 @@ node{
         def pwd = sh returnStatus: true, script: "pwd"
         echo "pwd:" + pwd
         
-        // def pod_spec_result = sh returnStatus: true, script: "cd app-swift-demo && /usr/local/bin/pod spec create app-swift-demo && cd .. && tar -czvf app-swift-demo.tar.gz app-swift-demo"
-        // pod_spec_result = pod_spec_result.trim()
-        // echo "pod spec result:" + pod_spec_result
+        def pod_spec_result = sh returnStatus: true, script: "cd app-swift-demo && /usr/local/bin/pod spec create app-swift-demo && cd .. && tar -czvf app-swift-demo.tar.gz app-swift-demo"
+        echo "pod spec result:" + pod_spec_result
         
         // upload to Artifactory
         
