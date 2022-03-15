@@ -6,7 +6,6 @@ def promotionConfig
 node{
     stage("Artifactory config"){
         server = Artifactory.server SERVER_NAME
-
     }
     
     stage("SCM Check out"){
@@ -40,9 +39,8 @@ node{
     stage("Set Props"){
         def setPropsSpec = """{
          "files": [
-          {
-               "pattern": "slash-cocoapods-dev-local/app-swift-demo/app-swift-demo.tar.gz",
-               "props": "filter-by-this-prop=yes"
+            {
+               "pattern": "slash-cocoapods-dev-local/app-swift-demo/app-swift-demo.tar.gz"
             }
          ]
         }"""
