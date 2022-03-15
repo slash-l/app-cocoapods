@@ -24,7 +24,7 @@ struct ContentView: View {
                 HStack {
                     DatePicker(selection: /*@START_MENU_TOKEN@*/.constant(Date())/*@END_MENU_TOKEN@*/, label: { Text("Date") })
                     
-                    Button("确认") {
+                    Button("确认 ") {
                         /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
                     }
                     
