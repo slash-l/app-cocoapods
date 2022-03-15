@@ -14,8 +14,7 @@ node{
     }
     
     stage("Pod install"){
-        def pod_install_result = sh returnStatus: true, script: "cd app-swift-demo"
-        //pod_install_result = pod_install_result.trim()
+        def pod_install_result = sh returnStatus: true, script: "cd app-swift-demo && pod install"
         echo "pod install result:" + pod_install_result
     }
     
@@ -27,7 +26,15 @@ node{
         echo "pod spec result:" + pod_spec_result
         
         // upload to Artifactory
-        
+        def uploadSpec = """{
+          "files": [
+            {
+              "pattern": "app-swift-demo.tar.gz",
+              "target": "slash-cocoapods-dev-local/app-swift-demo/"
+            }
+         ]
+        }"""
+        server.upload spec: uploadSpec
     }
     
     stage("Set Props"){
